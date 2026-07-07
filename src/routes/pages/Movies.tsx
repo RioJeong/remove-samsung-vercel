@@ -2,6 +2,7 @@ import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import { useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router'
 
 // interface ResponseData {
 //   Response: 'True' | 'False' // 'True' or 'False'
@@ -40,7 +41,10 @@ export default function Movies() {
     if (data.Response === 'True') {
       const { Search } = data
       setMovies(Search)
+      return
     }
+    alert(data.Error)
+    return
   }
 
   return (
@@ -53,17 +57,19 @@ export default function Movies() {
         />
         <Button type="submit">검색</Button>
       </form>
-      <ul>
+      <ul className="flex flex-wrap gap-3">
         {movies.map(movie => {
           return (
             <li key={movie.imdbID}>
-              <h3>{movie.Title}</h3>
-              <img
-                src={movie.Poster}
-                alt={movie.Title}
-                width={200}
-                height={300}
-              />
+              <Link to={`/movies/${movie.imdbID}`}>
+                <h3 className="max-w-[200px] truncate">{movie.Title}</h3>
+                <img
+                  src={movie.Poster}
+                  alt={movie.Title}
+                  width={200}
+                  height={300}
+                />
+              </Link>
             </li>
           )
         })}
