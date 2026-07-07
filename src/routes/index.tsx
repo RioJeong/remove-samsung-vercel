@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './pages/Home'
 import About from './pages/About'
+import Movies from './pages/Movies'
 import Default from './layouts/Default'
 
 const router = createBrowserRouter([
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: '/about', // http://localhost:5173/about
         element: <About />
+      },
+      {
+        path: '/movies', // http://localhost:5173/movies
+        element: <Movies />
       }
     ]
   }
