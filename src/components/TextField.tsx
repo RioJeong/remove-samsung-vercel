@@ -1,21 +1,14 @@
-interface Props {
-  label: string
-  value: string
-  onChange: (value: string) => void
+import type { InputHTMLAttributes } from 'react'
+
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
 }
 
-export default function TextField({ label, value, onChange }: Props) {
-  // const abc = props.abc
-  // const xyz = props.xyz
-  // const { abc, xyz } = props
+export default function TextField({ label, ...restProps }: Props) {
   return (
     <label>
-      <span>{label}</span>
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-      />
+      {label && <span>{label}</span>}
+      <input {...restProps} />
     </label>
   )
 }

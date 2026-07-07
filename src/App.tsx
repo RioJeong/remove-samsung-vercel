@@ -1,22 +1,29 @@
 import { useState } from 'react'
 import TextField from '@/components/TextField'
+import Button from '@/components/Button'
 
 export default function App() {
-  const [text, setText] = useState('Hello, Props!')
+  const [id, setId] = useState('')
+  const [pw, setPw] = useState('')
   return (
     <>
-      <main>
-        <section>
-          <TextField
-            label="메시지"
-            value={text}
-            onChange={event => {
-              setText(event.target.value)
-            }}
-          />
-          <h1>{text}</h1>
-        </section>
-      </main>
+      <form>
+        <TextField
+          label="ID"
+          placeholder="ID를 입력해주세요."
+          type="text"
+          value={id}
+          onChange={e => setId(e.target.value)}
+        />
+        <TextField
+          label="PW"
+          placeholder="PW를 입력해주세요."
+          type="password"
+          value={pw}
+          onChange={e => setPw(e.target.value)}
+        />
+        <Button>로그인</Button>
+      </form>
     </>
   )
 }
