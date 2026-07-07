@@ -1,0 +1,35 @@
+import { redirect } from 'react-router'
+import axios from 'axios'
+
+export interface User {
+  name: string
+  age: number
+  email: string
+}
+
+export function requiresAuth() {
+  const accessToken = localStorage.getItem('accessToken')
+  if (accessToken) {
+    return {
+      name: 'HEROPY',
+      age: 85,
+      email: 'theheropy@gmail.com'
+    }
+  }
+  return redirect('/signin')
+}
+
+export function guestOnly() {
+  const accessToken = localStorage.getItem('accessToken')
+  if (accessToken) {
+    return redirect('/')
+  }
+  return true
+}
+
+export async function fetchMovieDetails() {
+  const { data } = await axios.get(
+    `https://omdbapi.com?apikey=7035c60c&i=${movieId}`
+  )
+  return data
+}

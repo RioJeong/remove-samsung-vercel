@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 
 const navigations = [
   { to: '/', label: 'Home' },
@@ -8,6 +8,14 @@ const navigations = [
 ]
 
 export default function Header() {
+  const navigate = useNavigate()
+
+  function signOut() {
+    localStorage.removeItem('accessToken')
+    // location.reload()
+    navigate('/')
+  }
+
   return (
     <header className="flex gap-3">
       {navigations.map(nav => {
@@ -20,6 +28,7 @@ export default function Header() {
           </NavLink>
         )
       })}
+      <button onClick={signOut}>Sign Out</button>
     </header>
   )
 }

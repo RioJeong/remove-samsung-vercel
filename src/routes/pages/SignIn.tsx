@@ -11,8 +11,14 @@ export default function SignIn() {
   function signIn(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     if (id.trim() && pw.trim()) {
+      const user = {
+        name: 'HEROPY',
+        age: 85,
+        email: 'theheropy@gmail.com'
+      }
       const accessToken = 'slddDaA_jnfalDuw312_3' // 서버에서 받아온 토큰!
       localStorage.setItem('accessToken', accessToken)
+      sessionStorage.setItem('user', JSON.stringify(user))
       navigate('/')
     }
   }
