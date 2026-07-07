@@ -3,6 +3,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Movies from './pages/Movies'
 import MovieDetails from './pages/MovieDetails'
+import NotFound from './pages/NotFound'
+import SignIn from './pages/SignIn'
 import Default from './layouts/Default'
 
 const router = createBrowserRouter([
@@ -24,8 +26,16 @@ const router = createBrowserRouter([
       {
         path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
         element: <MovieDetails />
+      },
+      {
+        path: '/signin',
+        element: <SignIn />
       }
     ]
+  },
+  {
+    path: '*',
+    element: <NotFound />
   }
 ])
 

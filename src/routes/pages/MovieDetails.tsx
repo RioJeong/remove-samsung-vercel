@@ -30,8 +30,8 @@ export interface Movie {
   Response: string
 }
 export interface Rating {
-  Source: string
-  Value: string
+  Source: string // 영화 평가 사이트 이름
+  Value: string // 영화 평가 점수
 }
 
 // http://localhost:5173/movies/tt12345678
@@ -55,6 +55,19 @@ export default function MovieDetails() {
         <>
           <h1>{movie.Title}</h1>
           <p>{movie.Plot}</p>
+          <ul>
+            {movie.Ratings.map(rating => {
+              return (
+                <li key={rating.Source}>
+                  {rating.Source}: {rating.Value}
+                </li>
+              )
+            })}
+          </ul>
+          <img
+            src={`https://img.omdbapi.com?apikey=7035c60c&i=${movieId}&h=2000`}
+            alt={movie.Title}
+          />
         </>
       )}
     </>
