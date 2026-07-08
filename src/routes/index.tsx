@@ -6,7 +6,7 @@ import MovieDetails from './pages/MovieDetails'
 import NotFound from './pages/NotFound'
 import SignIn from './pages/SignIn'
 import Default from './layouts/Default'
-import { requiresAuth, guestOnly } from './loaders'
+import { requiresAuth, guestOnly, fetchMovieDetails } from './loaders'
 
 const router = createBrowserRouter([
   {
@@ -20,15 +20,29 @@ const router = createBrowserRouter([
         path: '/about', // http://localhost:5173/about
         element: <About />
       },
+      // {
+      //   path: '/movies', // http://localhost:5173/movies
+      //   loader: requiresAuth,
+      //   element: <Movies />
+      // },
+      // {
+      //   path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
+      //   loader: fetchMovieDetails,
+      //   element: <MovieDetails />
+      // },
       {
-        path: '/movies', // http://localhost:5173/movies
         loader: requiresAuth,
-        element: <Movies />
-      },
-      {
-        path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
-        loader: requiresAuth,
-        element: <MovieDetails />
+        children: [
+          {
+            path: '/movies', // http://localhost:5173/movies
+            element: <Movies />
+          },
+          {
+            path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
+            loader: fetchMovieDetails,
+            element: <MovieDetails />
+          }
+        ]
       },
       {
         path: '/signin',

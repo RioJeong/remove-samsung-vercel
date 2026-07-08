@@ -1,4 +1,5 @@
 import { redirect } from 'react-router'
+import type { LoaderFunctionArgs } from 'react-router'
 import axios from 'axios'
 
 export interface User {
@@ -27,7 +28,9 @@ export function guestOnly() {
   return true
 }
 
-export async function fetchMovieDetails() {
+// http://localhost:5173/movies/tt12345678
+export async function fetchMovieDetails({ params }: LoaderFunctionArgs) {
+  const { movieId = '' } = params
   const { data } = await axios.get(
     `https://omdbapi.com?apikey=7035c60c&i=${movieId}`
   )
