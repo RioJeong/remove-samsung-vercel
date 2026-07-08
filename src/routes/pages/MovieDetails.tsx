@@ -67,7 +67,7 @@ export default function MovieDetails() {
         <Loader
           size={100}
           weight={5}
-          className="fixed"
+          className="fixed z-1"
         />
       )}
       {movie && (

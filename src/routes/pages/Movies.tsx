@@ -2,8 +2,7 @@ import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import { useState } from 'react'
 import axios from 'axios'
-import { Link, useLoaderData } from 'react-router'
-import type { User } from '@/routes/loaders'
+import { Link } from 'react-router'
 import { delay } from '@/utils'
 
 // interface ResponseData {
@@ -35,7 +34,6 @@ export default function Movies() {
   const [searchText, setSearchText] = useState('')
   const [movies, setMovies] = useState<Movie[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const user = useLoaderData<User>()
 
   async function fetchMovies(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -57,7 +55,6 @@ export default function Movies() {
   return (
     <>
       <h1>Movies Page!!</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
       <form
         onSubmit={fetchMovies}
         className="flex items-center gap-3">
