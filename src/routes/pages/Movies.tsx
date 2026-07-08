@@ -1,62 +1,25 @@
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
-import { useState } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router'
-import { delay } from '@/utils'
-
-// interface ResponseData {
-//   Response: 'True' | 'False' // 'True' or 'False'
-//   Search?: Movie[]
-//   totalResults?: string
-//   Error?: string
-// }
-interface ResponseSuccessData {
-  Response: 'True'
-  Search: Movie[]
-  totalResults: string
-}
-interface ResponseFailureData {
-  Response: 'False'
-  Error: string
-}
-type ResponseData = ResponseSuccessData | ResponseFailureData
-
-interface Movie {
-  Title: string
-  Year: string
-  imdbID: string
-  Type: string
-  Poster: string
-}
+import { useMovieStore } from '@/stores/movie'
 
 export default function Movies() {
-  const [searchText, setSearchText] = useState('')
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const searchText = useMovieStore(s => s.searchText)
+  const movies = useMovieStore(s => s.movies)
+  const isLoading = useMovieStore(s => s.isLoading)
+  const setSearchText = useMovieStore(s => s.setSearchText)
+  const fetchMovies = useMovieStore(s => s.fetchMovies)
 
-  async function fetchMovies(event: React.SubmitEvent<HTMLFormElement>) {
+  async function _fetchMovies(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
-    setIsLoading(true)
-    await delay(1500)
-    const { data } = await axios.get<ResponseData>(
-      `https://omdbapi.com?apikey=7035c60c&s=${searchText}`
-    )
-    setIsLoading(false)
-    if (data.Response === 'True') {
-      const { Search } = data
-      setMovies(Search)
-      return
-    }
-    alert(data.Error)
-    return
+    fetchMovies()
   }
 
   return (
     <>
       <h1>Movies Page!!</h1>
       <form
-        onSubmit={fetchMovies}
+        onSubmit={_fetchMovies}
         className="flex items-center gap-3">
         <TextField
           value={searchText}
