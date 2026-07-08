@@ -5,6 +5,7 @@ import Movies from './pages/Movies'
 import MovieDetails from './pages/MovieDetails'
 import NotFound from './pages/NotFound'
 import SignIn from './pages/SignIn'
+import Todos from './pages/Todos'
 import Default from './layouts/Default'
 import { requiresAuth, guestOnly, fetchMovieDetails } from './loaders'
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
             loader: fetchMovieDetails,
             element: <MovieDetails />
+          },
+          {
+            path: '/todos',
+            element: <Todos />
           }
         ]
       },
