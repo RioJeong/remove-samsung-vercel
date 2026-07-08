@@ -1,6 +1,7 @@
 import { useParams } from 'react-router'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Loader from '@/components/Loader'
 
 export interface Movie {
   Title: string
@@ -38,6 +39,7 @@ export interface Rating {
 export default function MovieDetails() {
   const { movieId } = useParams()
   const [movie, setMovie] = useState<Movie | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchMovieDetails() {

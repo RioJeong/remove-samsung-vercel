@@ -4,6 +4,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { Link, useLoaderData } from 'react-router'
 import type { User } from '@/routes/loaders'
+import { delay } from '@/utils'
 
 // interface ResponseData {
 //   Response: 'True' | 'False' // 'True' or 'False'
@@ -33,13 +34,17 @@ interface Movie {
 export default function Movies() {
   const [searchText, setSearchText] = useState('')
   const [movies, setMovies] = useState<Movie[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const user = useLoaderData<User>()
 
   async function fetchMovies(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
+    setIsLoading(true)
+    await delay(1500)
     const { data } = await axios.get<ResponseData>(
       `https://omdbapi.com?apikey=7035c60c&s=${searchText}`
     )
+    setIsLoading(false)
     if (data.Response === 'True') {
       const { Search } = data
       setMovies(Search)
@@ -53,12 +58,18 @@ export default function Movies() {
     <>
       <h1>Movies Page!!</h1>
       <pre>{JSON.stringify(user, null, 2)}</pre>
-      <form onSubmit={fetchMovies}>
+      <form
+        onSubmit={fetchMovies}
+        className="flex items-center gap-3">
         <TextField
           value={searchText}
           onChange={e => setSearchText(e.target.value)}
         />
-        <Button type="submit">검색</Button>
+        <Button
+          type="submit"
+          loading={isLoading}>
+          검색
+        </Button>
       </form>
       <ul className="flex flex-wrap gap-3">
         {movies.map(movie => {
