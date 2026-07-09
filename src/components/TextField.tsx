@@ -1,10 +1,11 @@
 // import type { InputHTMLAttributes } from 'react'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  ref?: 타입
   label?: string
 }
 
-export default function TextField({ label, ...restProps }: Props) {
+export default function TextField({ ref, label, ...restProps }: Props) {
   return (
     <label>
       {label && <span>{label}</span>}

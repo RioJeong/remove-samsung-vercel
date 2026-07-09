@@ -12,7 +12,7 @@ export default function TodoList() {
 
   return (
     <>
-      <ul className="max-w-[400px]">
+      <ul className="max-w-[500px]">
         {todos.map(todo => {
           return (
             <TodoItem
