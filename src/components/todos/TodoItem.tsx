@@ -43,13 +43,25 @@ export default function TodoItem({ todo }: Props) {
         <>
           <TextField
             ref={inputRef}
-            className="grow"
+            className="w-full"
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
-          <Button onClick={() => offEditMode()}>취소</Button>
-          <Button onClick={() => _updateTodo()}>저장</Button>
-          <Button onClick={() => {}}>삭제</Button>
+          <Button
+            variant="secondary"
+            onClick={() => offEditMode()}>
+            취소
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => _updateTodo()}>
+            저장
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {}}>
+            삭제
+          </Button>
         </>
       ) : (
         <>
