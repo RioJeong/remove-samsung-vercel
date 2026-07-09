@@ -35,15 +35,28 @@ export const useTodoStore = create(
         set({ todos: data })
       }
       async function createTodo() {
-        const { title } = get()
+        const { title, todos } = get()
         if (!title.trim()) return
-        await todoApi.post('/', {
+        const { data } = await todoApi.post<Todo>('/', {
           title
         })
-        set({ title: '' })
+        set({
+          title: '',
+          todos: [data, ...todos]
+        })
       }
       async function updateTodo(todo: Todo) {
-        await todoApi.put(`/${todo.id}`, todo)
+        try {
+          const { todos } = get()
+          await todoApi.put(`/${todo.id}`, todo)
+          set({
+            todos: todos.map(t => {
+              return t.id === todo.id ? todo : t
+            })
+          })
+        } catch (error) {
+          console.error(error)
+        }
       }
       async function deleteTodo(todo: Todo) {
         await todoApi.delete(`/${todo.id}`)

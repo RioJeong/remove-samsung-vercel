@@ -21,11 +21,16 @@ export default function TodoItem({ todo }: Props) {
   const updateTodo = useTodoStore(s => s.updateTodo)
   const fetchTodos = useTodoStore(s => s.fetchTodos)
   const deleteTodo = useTodoStore(s => s.deleteTodo)
+
+  // 1) React Compiler(추천)
   const isLoading = getLoading(isSaving, isDeleting)
+
+  // 2) useMemo
   // const isLoading = useMemo(() => {
   //   return isSaving || isDeleting
   // }, [isSaving, isDeleting])
 
+  // 3) useEffect
   // const [isLoading, setIsLoading] = useState(false)
   // useEffect(() => {
   //   setIsLoading(isSaving || isDeleting)
