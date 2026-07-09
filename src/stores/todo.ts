@@ -42,14 +42,18 @@ export const useTodoStore = create(
         })
         set({ title: '' })
       }
-      async function updateTodo(todoToUpdate: Todo) {
-        await todoApi.put(`/${todoToUpdate.id}`, todoToUpdate)
+      async function updateTodo(todo: Todo) {
+        await todoApi.put(`/${todo.id}`, todo)
+      }
+      async function deleteTodo(todo: Todo) {
+        await todoApi.delete(`/${todo.id}`)
       }
       return {
         setTitle,
         fetchTodos,
         createTodo,
-        updateTodo
+        updateTodo,
+        deleteTodo
       }
     }
   )
