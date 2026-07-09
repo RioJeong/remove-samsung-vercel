@@ -14,6 +14,7 @@
     "immer": "^11.1.11",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-error-boundary": "^6.1.2",
     "react-router": "^8.1.0",
     "zustand": "^5.0.14"
   },

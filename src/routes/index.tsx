@@ -1,13 +1,21 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import Default from './layouts/Default'
 import Home from './pages/Home'
-import About from './pages/About'
+// import About from './pages/About'
 import Movies from './pages/Movies'
 import MovieDetails from './pages/MovieDetails'
-import NotFound from './pages/NotFound'
-import SignIn from './pages/SignIn'
+// import NotFound from './pages/NotFound'
+// import SignIn from './pages/SignIn'
 import Todos from './pages/Todos'
-import Default from './layouts/Default'
 import { requiresAuth, guestOnly, fetchMovieDetails } from './loaders'
+import Loader from '@/components/Loader'
+import { dynamic } from './dynamic'
+
+const About = dynamic(() => import('./pages/About'), {
+  loading: <Loader />
+})
+const NotFound = dynamic(() => import('./pages/NotFound'))
+const SignIn = dynamic(() => import('./pages/SignIn'))
 
 const router = createBrowserRouter([
   {

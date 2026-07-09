@@ -3,10 +3,6 @@ interface Props {
   onClose?: () => void
 }
 
-// <Modal></Modal>
-// <Modal onClose={() => {}}></Modal>
-// 조건 ? 참 : 거짓
-
 export default function Modal({ children, onClose = () => {} }: Props) {
   return (
     <div className="modal fixed top-0 left-0 flex h-screen w-screen items-center justify-center">
