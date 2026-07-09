@@ -48,7 +48,7 @@ export const useTodoStore = create(
       async function updateTodo(todo: Todo) {
         try {
           const { todos } = get()
-          await todoApi.put(`/${todo.id}`, todo)
+          todoApi.put(`/${todo.id}`, todo)
           set({
             todos: todos.map(t => {
               return t.id === todo.id ? todo : t
@@ -59,7 +59,13 @@ export const useTodoStore = create(
         }
       }
       async function deleteTodo(todo: Todo) {
-        await todoApi.delete(`/${todo.id}`)
+        const { todos } = get()
+        todoApi.delete(`/${todo.id}`)
+        set({
+          todos: todos.filter(t => {
+            return t.id !== todo.id
+          })
+        })
       }
       return {
         setTitle,

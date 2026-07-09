@@ -1,8 +1,9 @@
-import { useParams } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Loader from '@/components/Loader'
 import { delay, loadImage } from '@/utils'
+import Modal from '@/components/Modal'
 
 export interface Movie {
   Title: string
@@ -42,6 +43,7 @@ export default function MovieDetails() {
   const [movie, setMovie] = useState<Movie | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isLoadingForPoster, setIsLoadingForPoster] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     ;(async function () {
@@ -62,12 +64,12 @@ export default function MovieDetails() {
   }, [])
 
   return (
-    <>
+    <Modal onClose={() => navigate('/movies')}>
       {isLoading && (
         <Loader
           size={100}
           weight={5}
-          className="fixed z-1"
+          className="absolute z-1"
         />
       )}
       {movie && (
@@ -98,6 +100,6 @@ export default function MovieDetails() {
           alt={movie?.Title}
         />
       </div>
-    </>
+    </Modal>
   )
 }

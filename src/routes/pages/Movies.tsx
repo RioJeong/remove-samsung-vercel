@@ -1,6 +1,6 @@
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
-import { Link } from 'react-router'
+import { Link, Outlet } from 'react-router'
 import { useMovieStore } from '@/stores/movie'
 
 export default function Movies() {
@@ -48,6 +48,7 @@ export default function Movies() {
           )
         })}
       </ul>
+      <Outlet />
     </>
   )
 }

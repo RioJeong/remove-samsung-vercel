@@ -36,12 +36,14 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/movies', // http://localhost:5173/movies
-            element: <Movies />
-          },
-          {
-            path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
-            loader: fetchMovieDetails,
-            element: <MovieDetails />
+            element: <Movies />,
+            children: [
+              {
+                path: '/movies/:movieId', // http://localhost:5173/movies/tt12345678
+                loader: fetchMovieDetails,
+                element: <MovieDetails />
+              }
+            ]
           },
           {
             path: '/todos',
