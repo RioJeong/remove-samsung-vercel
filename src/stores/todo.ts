@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import axios from 'axios'
 
-interface Todo {
+export interface Todo {
   id: string // 할 일 ID
   order: number // 할 일 순서
   title: string // 할 일 제목
@@ -30,6 +30,10 @@ export const useTodoStore = create(
       function setTitle(title: string) {
         set({ title })
       }
+      async function fetchTodos() {
+        const { data } = await todoApi.get<Todo[]>('/')
+        set({ todos: data })
+      }
       async function createTodo() {
         const { title } = get()
         if (!title.trim()) return
@@ -38,14 +42,14 @@ export const useTodoStore = create(
         })
         set({ title: '' })
       }
-      async function fetchTodos() {
-        const { data } = await todoApi.get<Todo[]>('/')
-        set({ todos: data })
+      async function updateTodo(todoToUpdate: Todo) {
+        await todoApi.put(`/${todoToUpdate.id}`, todoToUpdate)
       }
       return {
         setTitle,
         fetchTodos,
-        createTodo
+        createTodo,
+        updateTodo
       }
     }
   )
